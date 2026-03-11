@@ -16,7 +16,11 @@ export default class App {
     }
 
     init() {
+        // this.postFilter = new PostList(this.postFilter)
         this.postList = new PostList(this.postsContainer)
+        this.postForm = new PostForm(this.formContainer)
+
+        this.postForm.render()
         this.renderPosts()
     }
 
