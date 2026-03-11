@@ -2,7 +2,7 @@ import './style.scss'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
 
-import { Post, PostFilter, PostForm, PostList } from '@/components'
+import { Post, PostFilter, PostForm, PostList } from '@/components/components-wrap.js'
 
 document.querySelector('#app').innerHTML = `
   <div>
