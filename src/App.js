@@ -9,6 +9,7 @@ export default class App {
         this.postsContainer = postsContainer;
 
         this.allPosts = [...data];
+        this.filterText = ''
 
         this.postList = null;
         this.postForm = null;
@@ -17,16 +18,29 @@ export default class App {
 
     init() {
         this.postForm = new PostForm(this.formContainer)
-        this.postFilter = new PostFilter(this.filterContainer)
+        this.postFilter = new PostFilter(this.filterContainer, (filterText) => {this.filterPosts(filterText)})
         this.postList = new PostList(this.postsContainer)
+
+        const allPosts = this.allPosts
 
         this.postForm.render()
         this.postFilter.render()
-        this.renderPosts()
+        this.renderPosts(allPosts)
     }
 
-    renderPosts() {
-        const posts = this.allPosts
+    renderPosts(posts) {
         this.postList.render(posts)
+    }
+
+    filterPosts(pattern) {
+        this.filterText = pattern
+
+        const allPosts = this.allPosts
+        const filteredPosts = allPosts.filter(post => {
+            const regex = new RegExp(pattern)
+            return post.title.match(regex)
+        })
+
+        this.postList.render(filteredPosts)
     }
 }

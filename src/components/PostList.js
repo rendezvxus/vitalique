@@ -5,6 +5,7 @@ export default class PostList {
     }
 
     render(posts) {
+        this.container.replaceChildren()
         posts.forEach(post => {
             const postElement = document.createElement('div')
             postElement.classList.add('post')
