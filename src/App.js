@@ -16,11 +16,12 @@ export default class App {
     }
 
     init() {
-        // this.postFilter = new PostList(this.postFilter)
-        this.postList = new PostList(this.postsContainer)
         this.postForm = new PostForm(this.formContainer)
+        this.postFilter = new PostFilter(this.filterContainer)
+        this.postList = new PostList(this.postsContainer)
 
         this.postForm.render()
+        this.postFilter.render()
         this.renderPosts()
     }
 
