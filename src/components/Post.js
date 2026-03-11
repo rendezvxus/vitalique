@@ -1,4 +1,4 @@
-class Post {
+export default class Post {
     constructor(data) {
         this.userId = data.userId
         this.id = data.id

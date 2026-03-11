@@ -1,4 +1,4 @@
-class PostForm  {
+export default class PostForm  {
     constructor (_) {
 
     }

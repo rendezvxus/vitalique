@@ -1,4 +1,4 @@
-class PostList {
+export default class PostList {
 
     constructor(data) {
         this.container = this.container

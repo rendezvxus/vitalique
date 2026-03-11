@@ -1,4 +1,4 @@
-class PostFilter {
+export default class PostFilter {
         constructor (_) {
         
     }
