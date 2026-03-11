@@ -1,0 +1,5 @@
+class PostFilter {
+        constructor (_) {
+        
+    }
+}
