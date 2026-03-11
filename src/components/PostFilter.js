@@ -1,5 +1,3 @@
 export default class PostFilter {
-        constructor (_) {
-        
-    }
+    constructor () {}
 }

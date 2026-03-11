@@ -1,5 +1,3 @@
 export default class PostForm  {
-    constructor (_) {
-
-    }
+    constructor () {}
 }

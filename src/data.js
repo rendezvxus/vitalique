@@ -1,4 +1,4 @@
-const mockPosts = [
+const data = [
   {
     "userId": 1,
     "id": 1,
@@ -60,3 +60,5 @@ const mockPosts = [
     "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
   }
 ]
+
+export { data };

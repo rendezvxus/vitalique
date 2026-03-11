@@ -1,7 +1,7 @@
 export default class PostList {
 
     constructor(data) {
-        this.container = this.container
+        this.container = data.container
         this.posts = []
     }
 }
