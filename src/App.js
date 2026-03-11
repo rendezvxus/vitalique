@@ -2,6 +2,8 @@ import './style.scss'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
 
+import { Post, PostFilter, PostForm, PostList } from '@/components'
+
 document.querySelector('#app').innerHTML = `
   <div>
     <a href="https://vite.dev" target="_blank">
