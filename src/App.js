@@ -8,6 +8,8 @@ export default class App {
         this.formContainer = formContainer;
         this.postsContainer = postsContainer;
 
+        this.posts = null;
+        
         this.postForm = null;
         this.postFilter = null;
         this.postList = null;
@@ -24,18 +26,28 @@ export default class App {
             (newPost) => {this.addPost(newPost)}
         )
 
-        this.postList = new PostList(this.postsContainer, data)
+        this.postList = new PostList(this.postsContainer)
         
+        this.posts = data.map(mockDatum => new Post(mockDatum))
+
         this.postFilter.render()
         this.postForm.render()
-        this.postList.render()
+        this.postList.renderPosts(this.posts)
     }
 
     filterPosts(pattern) {
-        this.postList.render(pattern)
+        const filteredPosts = this.posts.filter(post => post.title.match(pattern))
+        this.postList.renderPosts(filteredPosts, true)
     }
 
     addPost({ title, body }) {
-        this.postList.addPost({ title, body })
+        const newPost = new Post({
+            userId: 1,
+            id: this.postList.getPosts().length,
+            title,
+            body
+        })
+
+        this.posts.push(newPost)
     }
 }
