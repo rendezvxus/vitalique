@@ -1,1 +1,1 @@
-henlo!
+Search for interesting articles or create one!
