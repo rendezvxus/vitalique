@@ -8,8 +8,8 @@ export default class App {
         this.formContainer = formContainer;
         this.postsContainer = postsContainer;
 
-        this.allPosts = [...data];
-        this.filterText = ''
+        this.allPosts = null;
+        this.filterText = '';
 
         this.postList = null;
         this.postForm = null;
@@ -17,7 +17,9 @@ export default class App {
     }
 
     init() {
-        this.postForm = new PostForm(this.formContainer)
+        this.allPosts = this.classifyPosts([...data])
+
+        this.postForm = new PostForm(this.formContainer, (newPost) => {this.addPost(newPost)})
         this.postFilter = new PostFilter(this.filterContainer, (filterText) => {this.filterPosts(filterText)})
         this.postList = new PostList(this.postsContainer)
 
@@ -28,6 +30,7 @@ export default class App {
         this.renderPosts(allPosts)
     }
 
+    // This func is practically meaningless
     renderPosts(posts) {
         this.postList.render(posts)
     }
@@ -42,5 +45,13 @@ export default class App {
         })
 
         this.postList.render(filteredPosts)
+    }
+
+    addPost(postObj) {
+        console.log(postObj)
+    }
+
+    classifyPosts(postsArray) {
+        return postsArray.map(post => new Post(post))
     }
 }

@@ -7,7 +7,9 @@ export default class PostFilter {
     render() {
         const filterElement = document.createElement('input')
         filterElement.classList.add('filter')
+        filterElement.placeholder = 'Поиск статьи'
         filterElement.addEventListener('input', (e) => {
+            console.log(this.onInputEvent)
             const filterText = e.target.value;
 
             if (this.onInputEvent) {

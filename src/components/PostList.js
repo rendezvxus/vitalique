@@ -13,6 +13,7 @@ export default class PostList {
                 <h1>${post.title}</h1>
                 <h3>${post.body}</h3>
                 <sub>User: ${post.userId}</sub>
+                <sub>ID: ${post.id}</sub>
             `
 
             this.container.appendChild(postElement)
