@@ -17,17 +17,13 @@ export default class App {
     }
 
     init() {
-        this.allPosts = this.classifyPosts([...data])
-
         this.postForm = new PostForm(this.formContainer, (newPost) => {this.addPost(newPost)})
         this.postFilter = new PostFilter(this.filterContainer, (filterText) => {this.filterPosts(filterText)})
-        this.postList = new PostList(this.postsContainer)
-
-        const allPosts = this.allPosts
+        this.postList = new PostList(this.postsContainer, data)
 
         this.postForm.render()
         this.postFilter.render()
-        this.renderPosts(allPosts)
+        this.postList.render()
     }
 
     // This func is practically meaningless
@@ -36,22 +32,20 @@ export default class App {
     }
 
     filterPosts(pattern) {
-        this.filterText = pattern
-
-        const allPosts = this.allPosts
-        const filteredPosts = allPosts.filter(post => {
-            const regex = new RegExp(pattern)
-            return post.title.match(regex)
-        })
-
-        this.postList.render(filteredPosts)
+        this.postList.render(pattern)
     }
 
     addPost(postObj) {
-        console.log(postObj)
+        const newPost = this.constructPost(postObj)
+        this.allPosts.shift()
     }
 
-    classifyPosts(postsArray) {
-        return postsArray.map(post => new Post(post))
+    constructPost({ title, body }) {
+        return new Post({
+            userId: 1,
+            id: this.allPosts.length + 1,
+            title,
+            body
+        })
     }
 }
