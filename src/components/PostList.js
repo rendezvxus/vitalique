@@ -9,7 +9,7 @@ export default class PostList {
 
     render(pattern) {
         this.container.replaceChildren()
-        this.data.filter(post => post.title.match(new RegExp(pattern)))
+        this.data.filter(post => post.title.match(pattern))
             .forEach(post => {
                 const postElement = this.createPostElement(post)
                 this.container.appendChild(postElement)
