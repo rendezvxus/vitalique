@@ -17,4 +17,8 @@ export default class Post {
 
         return postElement
     }
+
+    isMatchingPattern(pattern) {
+        return this.title.match(pattern)
+    }
 }

@@ -9,16 +9,19 @@ export default class App {
         this.postsContainer = postsContainer;
 
         this.posts = null;
-        
+        this.filterPattern = '' // Used in case where new post title doesn't match filter
+
         this.postForm = null;
         this.postFilter = null;
         this.postList = null;
     }
 
     init() {
+        this.posts = data.map(mockDatum => new Post(mockDatum))
+
         this.postFilter = new PostFilter(
             this.filterContainer, 
-            (filterText) => {this.filterPosts(filterText)}
+            (filterText) => {this.postFilterCallback(filterText)}
         )
         
         this.postForm = new PostForm(
@@ -27,27 +30,31 @@ export default class App {
         )
 
         this.postList = new PostList(this.postsContainer)
-        
-        this.posts = data.map(mockDatum => new Post(mockDatum))
 
         this.postFilter.render()
         this.postForm.render()
         this.postList.renderPosts(this.posts)
     }
 
-    filterPosts(pattern) {
-        const filteredPosts = this.posts.filter(post => post.title.match(pattern))
+    postFilterCallback(pattern) {
+        this.filterPattern = pattern
+        const filteredPosts = this.posts.filter(post => post.isMatchingPattern(this.filterPattern))
         this.postList.renderPosts(filteredPosts, true)
     }
 
     addPost({ title, body }) {
         const newPost = new Post({
             userId: 1,
-            id: this.postList.getPosts().length,
+            id: this.posts.length + 1,
             title,
             body
         })
 
         this.posts.push(newPost)
+        if (newPost.isMatchingPattern(this.filterPattern)) {
+            this.postList.renderPost(newPost, true)
+        } else {
+            alert(`Пост создан успешно! Очистите фильтр чтобы увидеть пост в конце списка.`)
+        }
     }
 }
