@@ -8,9 +8,6 @@ export default class App {
         this.formContainer = formContainer;
         this.postsContainer = postsContainer;
 
-        this.allPosts = null;
-        this.filterText = '';
-
         this.postList = null;
         this.postForm = null;
         this.postFilter = null;
@@ -26,26 +23,13 @@ export default class App {
         this.postList.render()
     }
 
-    // This func is practically meaningless
-    renderPosts(posts) {
-        this.postList.render(posts)
-    }
-
     filterPosts(pattern) {
         this.postList.render(pattern)
     }
 
-    addPost(postObj) {
-        const newPost = this.constructPost(postObj)
-        this.allPosts.shift()
-    }
-
-    constructPost({ title, body }) {
-        return new Post({
-            userId: 1,
-            id: this.allPosts.length + 1,
-            title,
-            body
-        })
+    addPost({ title, body }) {
+        const newPost = this.postList.createNewPostFromTitleAndBody({ title, body })
+        this.postList.addPost(newPost)
+        this.postList.renderNewPost(newPost)
     }
 }
