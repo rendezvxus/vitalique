@@ -8,18 +8,26 @@ export default class App {
         this.formContainer = formContainer;
         this.postsContainer = postsContainer;
 
-        this.postList = null;
         this.postForm = null;
         this.postFilter = null;
+        this.postList = null;
     }
 
     init() {
-        this.postForm = new PostForm(this.formContainer, (newPost) => {this.addPost(newPost)})
-        this.postFilter = new PostFilter(this.filterContainer, (filterText) => {this.filterPosts(filterText)})
-        this.postList = new PostList(this.postsContainer, data)
+        this.postFilter = new PostFilter(
+            this.filterContainer, 
+            (filterText) => {this.filterPosts(filterText)}
+        )
+        
+        this.postForm = new PostForm(
+            this.formContainer, 
+            (newPost) => {this.addPost(newPost)}
+        )
 
-        this.postForm.render()
+        this.postList = new PostList(this.postsContainer, data)
+        
         this.postFilter.render()
+        this.postForm.render()
         this.postList.render()
     }
 
@@ -28,8 +36,6 @@ export default class App {
     }
 
     addPost({ title, body }) {
-        const newPost = this.postList.createNewPostFromTitleAndBody({ title, body })
-        this.postList.addPost(newPost)
-        this.postList.renderNewPost(newPost)
+        this.postList.addPost({ title, body })
     }
 }

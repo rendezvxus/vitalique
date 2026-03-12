@@ -6,22 +6,21 @@ export default class PostForm  {
 
     render() {
         const formElement = document.createElement('form')
-
-        const postTitle = document.createElement('input')
-        const postBody = document.createElement('input')
-        const postSubmitBtn = document.createElement('button')
-
         formElement.classList.add('form')
         formElement.method = 'post'
-
+        
+        const postTitle = document.createElement('input')
         postTitle.placeholder = 'Название'
+
+        const postBody = document.createElement('input')
         postBody.placeholder = 'Начните писать статью'
+
+        const postSubmitBtn = document.createElement('button')
         postSubmitBtn.type = 'submit'
         postSubmitBtn.innerHTML = `Опубликовать`
         
-        formElement.appendChild(postTitle)
-        formElement.appendChild(postBody)
-        formElement.appendChild(postSubmitBtn)
+        formElement.append(postTitle, postBody, postSubmitBtn)
+        this.container.appendChild(formElement)
 
         formElement.addEventListener('submit', (e) => {
             e.preventDefault()
@@ -41,7 +40,5 @@ export default class PostForm  {
             postTitle.value = ''
             postBody.value =''
         })
-        
-        this.container.appendChild(formElement)
     }
 }

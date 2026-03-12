@@ -8,48 +8,41 @@ export default class PostList {
     }
 
     render(pattern) {
-
         this.container.replaceChildren()
         this.data.filter(post => post.title.match(new RegExp(pattern)))
             .forEach(post => {
-                const postElement = document.createElement('div')
-                postElement.classList.add('post')
-                postElement.innerHTML = `
-                    <h1>${post.title}</h1>
-                    <h3>${post.body}</h3>
-                    <sub>User: ${post.userId}</sub>
-                    <sub>ID: ${post.id}</sub>`
-
+                const postElement = this.createPostElement(post)
                 this.container.appendChild(postElement)
             })
     }
 
-    renderNewPost(newPost) {
+    createPostElement(post) {
         const postElement = document.createElement('div')
         postElement.classList.add('post')
         postElement.innerHTML = `
-            <h1>${newPost.title}</h1>
-            <h3>${newPost.body}</h3>
-            <sub>User: ${newPost.userId}</sub>
-            <sub>ID: ${newPost.id}</sub>`
+            <h1>${post.title}</h1>
+            <h3>${post.body}</h3>
+            <sub>User: ${post.userId}</sub>
+            <sub>ID: ${post.id}</sub>`
 
+        return postElement
+    }
+
+    renderNewPost(newPost) {
+        const postElement = this.createPostElement(newPost)
         this.container.prepend(postElement)
     }
 
-    getPosts() {
-        return this.data
-    }
-
-    createNewPostFromTitleAndBody({ title, body }) {
-        return new Post({
-            userId: 1,
-            id: this.data.length + 1,
-            title,
-            body
+    addPost(data) {
+        const newPost = new Post({
+            userId: data.userId || 1,
+            id: data.id || this.data.length + 1,
+            title: data.title,
+            body: data.body
         })
-    }
 
-    addPost(post) {
-        this.data.push(post)
+        this.data.push(newPost)
+
+        this.renderNewPost(newPost)
     }
 }
