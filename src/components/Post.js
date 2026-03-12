@@ -1,9 +1,10 @@
 export default class Post {
-    constructor({userId, id, title, body}) {
+    constructor({userId, id, title, body}, deletePostCallback) {
         this.userId = userId
         this.id = id
         this.title = title
         this.body = body
+        this.deletePostCallback = deletePostCallback
     }
 
     render() {
@@ -12,9 +13,18 @@ export default class Post {
         postElement.innerHTML = `
             <h1>${this.title}</h1>
             <h3>${this.body}</h3>
-            <sub>User: ${this.userId}</sub>
-            <sub>ID: ${this.id}</sub>`
+            <p>User: ${this.userId}</p>
+            <p>ID: ${this.id}</p>`
+        
+        const deleteButton = document.createElement('button')
+        deleteButton.type = 'button'
+        deleteButton.innerHTML = `Удалить`
+        deleteButton.addEventListener('click', (e) => {
+            this.deletePostCallback(this)
+        })
 
+        postElement.appendChild(deleteButton)
+        
         return postElement
     }
 

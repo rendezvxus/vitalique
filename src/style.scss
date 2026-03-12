@@ -176,7 +176,7 @@ body {
     word-break: break-word;
   }
   
-  sub {
+  p {
     display: inline-block;
     margin-right: 1.5rem;
     font-size: 0.9rem;
@@ -187,6 +187,29 @@ body {
     
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  button {
+    display: inline-block;
+    margin-right: 1.5rem;
+    font-size: 0.9rem;
+    color: #fff;
+    background: #f44;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    border: none;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      background: #f66;
+    }
+    
+    &:active {
+      background: #f22;
     }
   }
 }
