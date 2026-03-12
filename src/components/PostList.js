@@ -50,6 +50,6 @@ export default class PostList {
     }
 
     addPost(post) {
-        this.data.unshift(post)
+        this.data.push(post)
     }
 }
