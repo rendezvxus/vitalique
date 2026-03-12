@@ -12,7 +12,7 @@ export default class PostForm  {
         const postTitle = document.createElement('input')
         postTitle.placeholder = 'Название'
 
-        const postBody = document.createElement('input')
+        const postBody = document.createElement('textarea')
         postBody.placeholder = 'Начните писать статью'
 
         const postSubmitBtn = document.createElement('button')
