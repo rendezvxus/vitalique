@@ -1,5 +1,4 @@
 import { Post, PostFilter, PostForm, PostList } from '@/components/components-wrap.js'
-import { data } from '@/data.js'
 
 export default class App {
 
@@ -9,7 +8,7 @@ export default class App {
         this.postsContainer = postsContainer;
 
         this.posts = null;
-        this.filterPattern = ''; // Used in case where new post title doesn't match filter
+        this.filterPattern = '';
 
         this.postForm = null;
         this.postFilter = null;
@@ -20,13 +19,20 @@ export default class App {
         this.addPostCallback = (post) => {this.addPost(post)};
     }
 
-    init() {
-        this.posts = data.map(mockDatum => 
-            new Post(
-                mockDatum, 
-                this.deletePostCallback
+    async init() {
+        try {
+            const response = await fetch('/data.json')
+            if (!response.ok) throw new Error('Ошибка загрузки данных :(')
+            const jsonData = await response.json()
+            this.posts = jsonData.map(datum => 
+                new Post(
+                    datum, 
+                    this.deletePostCallback
+                )
             )
-        )
+        } catch (err) {
+            console.error('Не удалось загрузить данные:', error);
+        }
 
         this.postFilter = new PostFilter(
             this.filterContainer, 
@@ -67,6 +73,7 @@ export default class App {
         )
 
         this.posts.push(newPost)
+
         if (newPost.isMatchingPattern(this.filterPattern)) {
             this.postList.renderPost(newPost, true)
         } else {
@@ -77,6 +84,7 @@ export default class App {
     deletePost(post) {
         const postIndex = this.posts.indexOf(post)
         this.posts.splice(postIndex, 1)
+
         this.filterPosts(this.filterPattern)
     }
 }
