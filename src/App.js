@@ -7,7 +7,7 @@ export default class App {
         this.formContainer = formContainer;
         this.postsContainer = postsContainer;
 
-        this.posts = null;
+        this.posts = [];
         this.filterPattern = '';
 
         this.postForm = null;
@@ -19,20 +19,12 @@ export default class App {
         this.addPostCallback = (post) => {this.addPost(post)};
     }
 
-    async init() {
-        try {
-            const response = await fetch('/data.json')
-            if (!response.ok) throw new Error('Ошибка загрузки данных :(')
-            const jsonData = await response.json()
-            this.posts = jsonData.map(datum => 
-                new Post(
-                    datum, 
-                    this.deletePostCallback
-                )
-            )
-        } catch (err) {
-            console.error('Не удалось загрузить данные:', error);
-        }
+    init() {
+        const url = 'https://jsonplaceholder.typicode.com/posts?_limit=10'
+
+        fetch(url)
+            .then(response => response.json())
+            .then(jsonData => { this.handleJsonData(jsonData) })
 
         this.postFilter = new PostFilter(
             this.filterContainer, 
@@ -48,7 +40,6 @@ export default class App {
 
         this.postFilter.render()
         this.postForm.render()
-        this.postList.renderPosts(this.posts)
     }
 
     filterPosts(pattern) {
@@ -86,5 +77,16 @@ export default class App {
         this.posts.splice(postIndex, 1)
 
         this.filterPosts(this.filterPattern)
+    }
+
+    handleJsonData(jsonData) {
+        this.posts = jsonData.map(datum => 
+            new Post(
+                datum, 
+                this.deletePostCallback
+                )
+            )
+
+        this.postList.renderPosts(this.posts)
     }
 }
